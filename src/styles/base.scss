@@ -1,0 +1,31 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir,
+    helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial, sans-serif;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.NavLink {
+  font-size: 20px;
+  color: currentColor;
+}
+
+.NavLink--active {
+  color: palevioletred;
+}
