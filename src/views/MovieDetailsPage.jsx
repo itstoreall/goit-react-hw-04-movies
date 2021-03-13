@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { Component } from 'react';
 
-const MovieDetailsPage = () => {
-  return (
-    <>
-      <h2>Movie Details Page</h2>
-    </>
-  );
-};
-
-export default MovieDetailsPage;
+export default class MovieDetailsPage extends Component {
+  render() {
+    return (
+      <>
+        <h1>Movie Details Page {this.props.match.params.bookId}</h1>
+      </>
+    );
+  }
+}
