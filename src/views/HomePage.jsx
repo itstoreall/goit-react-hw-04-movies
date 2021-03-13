@@ -12,9 +12,7 @@ class HomePage extends Component {
 
   async componentDidMount() {
     try {
-      const response = await axios.get(
-        `/3/trending/all/day?api_key=${apiKey}&page=1`,
-      );
+      const response = await axios.get(`/3/trending/all/day?api_key=${apiKey}`);
       const trends = response.data.results;
       this.setState({ trends: trends });
     } catch (error) {
@@ -32,9 +30,7 @@ class HomePage extends Component {
               trend =>
                 trend.title !== undefined && (
                   <li key={trend.id}>
-                    <NavLink to={`${this.props.match.url}/${trend.id}`}>
-                      {trend.title}
-                    </NavLink>
+                    <NavLink to={`/movies/${trend.id}`}>{trend.title}</NavLink>
                   </li>
                 ),
             )}
