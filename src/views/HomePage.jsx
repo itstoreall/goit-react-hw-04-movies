@@ -13,8 +13,8 @@ class HomePage extends Component {
   async componentDidMount() {
     try {
       const response = await axios.get(`/3/trending/all/day?api_key=${apiKey}`);
-      const trends = response.data.results;
-      this.setState({ trends: trends });
+      const { results } = response.data;
+      this.setState({ trends: results });
     } catch (error) {
       console.error(error);
     }

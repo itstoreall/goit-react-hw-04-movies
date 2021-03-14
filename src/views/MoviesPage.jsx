@@ -11,8 +11,6 @@ class MoviesPage extends Component {
   };
 
   handleSearchMovie = searchQuery => {
-    console.log(searchQuery);
-
     axios
       .get(`/3/search/movie?api_key=${apiKey}&query=${searchQuery}`)
       .then(({ data }) => this.setState({ findedMovies: data.results }));

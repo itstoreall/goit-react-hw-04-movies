@@ -1,5 +1,6 @@
-import axios from 'axios';
 import React, { Component } from 'react';
+import axios from 'axios';
+// import { NavLink, Route } from 'react-router-dom';
 import Cast from '../components/Cast';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org';
@@ -12,12 +13,17 @@ export default class MovieDetailsPage extends Component {
     release_date: '',
     overview: null,
     genres: [],
+    credits: null,
+    reviews: null,
   };
 
   async componentDidMount() {
     try {
       const { movieId } = this.props.match.params;
-      const response = await axios.get(`/3/movie/${movieId}?api_key=${apiKey}`);
+      const response = await axios.get(
+        `/3/movie/${movieId}?api_key=${apiKey}&append_to_response=credits,reviews`,
+      );
+      console.log('response', response.data);
       this.setState({ ...response.data });
     } catch (error) {
       console.error(error);
@@ -26,17 +32,20 @@ export default class MovieDetailsPage extends Component {
 
   render() {
     const { poster_path, title, release_date, overview, genres } = this.state;
-
+    const { movieId } = this.props.match.params;
+    const { url, path } = this.props.match;
+    const poster = `https://image.tmdb.org/t/p/w400/${poster_path}`;
+    const credits = this.state.credits;
+    const reviews = this.state.reviews;
+    console.log('credits', credits);
+    console.log('reviews', reviews);
     return (
       <>
         {poster_path && (
-          <div>
-            <h1>Movie Details Page - {this.props.match.params.movieId}</h1>
+          <>
+            <h1>Movie Details Page - {movieId}</h1>
             <div>
-              <img
-                src={`https://image.tmdb.org/t/p/w300${poster_path}`}
-                alt={this.state.title}
-              />
+              <img src={poster} alt={title} />
               <h2>
                 {title} ({release_date.slice(0, 4)})
               </h2>
@@ -47,8 +56,18 @@ export default class MovieDetailsPage extends Component {
                 <span key={genre.name}>{genre.name} </span>
               ))}
             </div>
-            <Cast />
-          </div>
+          </>
+        )}
+
+        <h3>Additional information</h3>
+        {credits && reviews && (
+          <Cast
+            id={movieId}
+            url={url}
+            path={path}
+            credits={this.state.credits}
+            reviews={this.state.reviews}
+          />
         )}
       </>
     );
