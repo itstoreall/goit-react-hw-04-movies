@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-// import { NavLink, Route } from 'react-router-dom';
+import { NavLink, Route } from 'react-router-dom';
 import Cast from '../components/Cast';
+import Reviews from '../components/Reviews';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org';
 const apiKey = 'e548173527b69af98deb3da87ab1364c';
@@ -23,7 +24,7 @@ export default class MovieDetailsPage extends Component {
       const response = await axios.get(
         `/3/movie/${movieId}?api_key=${apiKey}&append_to_response=credits,reviews`,
       );
-      console.log('response', response.data);
+      // console.log('response', response.data);
       this.setState({ ...response.data });
     } catch (error) {
       console.error(error);
@@ -31,14 +32,19 @@ export default class MovieDetailsPage extends Component {
   }
 
   render() {
-    const { poster_path, title, release_date, overview, genres } = this.state;
+    const poster = `https://image.tmdb.org/t/p/w400/${this.state.poster_path}`;
     const { movieId } = this.props.match.params;
     const { url, path } = this.props.match;
-    const poster = `https://image.tmdb.org/t/p/w400/${poster_path}`;
-    const credits = this.state.credits;
-    const reviews = this.state.reviews;
-    console.log('credits', credits);
-    console.log('reviews', reviews);
+    const {
+      poster_path,
+      title,
+      release_date,
+      overview,
+      genres,
+      credits,
+      reviews,
+    } = this.state;
+
     return (
       <>
         {poster_path && (
@@ -60,15 +66,22 @@ export default class MovieDetailsPage extends Component {
         )}
 
         <h3>Additional information</h3>
-        {credits && reviews && (
-          <Cast
-            id={movieId}
-            url={url}
-            path={path}
-            credits={this.state.credits}
-            reviews={this.state.reviews}
-          />
-        )}
+        <ul>
+          <li>
+            <NavLink to={`${url}/cast`}>Cost</NavLink>
+          </li>
+          <li>
+            <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+          </li>
+        </ul>
+        <Route
+          path={`${path}/cast`}
+          render={props => <Cast credits={credits} />}
+        />
+        <Route
+          path={`${path}/reviews`}
+          render={props => <Reviews reviews={reviews} />}
+        />
       </>
     );
   }

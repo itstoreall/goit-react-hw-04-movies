@@ -1,31 +1,30 @@
 import React from 'react';
-import { NavLink, Route } from 'react-router-dom';
-import CostItem from './CastItem';
-// import ReviewsItem from './';
+import imgNoFound from './error.jpg';
 
-const Cast = ({ path, url, credits, reviews }) => {
-  console.log('credits-Cast', credits.cast);
-  // console.log(reviews);
+const Cast = ({ credits }) => {
+  const handleImgUrl = url => {
+    return url ? `https://image.tmdb.org/t/p/w200${url}` : imgNoFound;
+  };
+
   return (
-    <ul>
-      <ul>
-        <li>
-          <NavLink to={`${url}/cast`}>Cost</NavLink>
-        </li>
-        {/* <li>
-          <NavLink to={`${url}/reviews`}>Reviews</NavLink>
-        </li> */}
-      </ul>
-
-      <Route
-        path={`${path}/cast`}
-        render={() => <CostItem cast={credits.cast} />}
-      />
-      {/* <Route
-        path={`${path}/reviews`}
-        render={() => <ReviewsItem reviews={reviews} />}
-      /> */}
-    </ul>
+    <>
+      {credits && (
+        <ul>
+          {credits.cast &&
+            credits.cast.map((actor, idx) => (
+              <li key={`${idx}${actor.id}`}>
+                <img
+                  src={handleImgUrl(actor.profile_path)}
+                  alt="jj"
+                  width="100"
+                />
+                <p>{actor.name}</p>
+                <p>{actor.character}</p>
+              </li>
+            ))}
+        </ul>
+      )}
+    </>
   );
 };
 

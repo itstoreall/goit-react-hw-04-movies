@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { NavLink } from 'react-router-dom';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org';
 const apiKey = 'e548173527b69af98deb3da87ab1364c';
@@ -7,13 +8,13 @@ const apiKey = 'e548173527b69af98deb3da87ab1364c';
 class MoviesPage extends Component {
   state = {
     inputValue: '',
-    findedMovies: [],
+    movies: [],
   };
 
-  handleSearchMovie = searchQuery => {
+  fetchMovie = searchQuery => {
     axios
       .get(`/3/search/movie?api_key=${apiKey}&query=${searchQuery}`)
-      .then(({ data }) => this.setState({ findedMovies: data.results }));
+      .then(({ data }) => this.setState({ movies: data.results }));
   };
 
   handleChange = e => {
@@ -23,7 +24,7 @@ class MoviesPage extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    this.handleSearchMovie(this.state.inputValue);
+    this.fetchMovie(this.state.inputValue);
     this.setState({ inputValue: '' });
   };
 
@@ -41,8 +42,12 @@ class MoviesPage extends Component {
         </form>
 
         <ul>
-          {this.state.findedMovies.map(movie => (
-            <li key={movie.id}>{movie.title}</li>
+          {this.state.movies.map(movie => (
+            <li key={movie.id}>
+              <NavLink to={`${this.props.match.url}/${movie.id}`}>
+                {movie.title}
+              </NavLink>
+            </li>
           ))}
         </ul>
       </>
