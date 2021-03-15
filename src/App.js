@@ -4,47 +4,47 @@ import HomePage from './views/HomePage';
 import MoviesPage from './views/MoviesPage';
 import MovieDetailsPage from './views/MovieDetailsPage';
 import NotFoundPage from './views/NotFoundPage';
-import s from './views/Pages.module.scss';
+import s from './views/s.module.scss';
 
 class App extends Component {
   render() {
     return (
       <>
-        <header>
-          <section className={s.section}>
-            <div className={s.containet}>
-              <ul>
-                <li>
-                  <NavLink
-                    exact
-                    to="/"
-                    className={s.NavLink}
-                    activeClassName={s.NavLink__active}
-                  >
-                    Home
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/movies"
-                    className={s.NavLink}
-                    activeClassName={s.NavLink__active}
-                  >
-                    Movies
-                  </NavLink>
-                </li>
-              </ul>
-            </div>
-          </section>
+        <header className={s.pageHeader}>
+          <div className={s.containerHeader}>
+            <ul className={s.NavList}>
+              <li>
+                <NavLink
+                  exact
+                  to="/"
+                  className={s.NavLink}
+                  activeClassName={s.NavLink__active}
+                >
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/movies"
+                  className={s.NavLink}
+                  activeClassName={s.NavLink__active}
+                >
+                  Movies
+                </NavLink>
+              </li>
+            </ul>
+          </div>
         </header>
 
         <main>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route path="/movies/:movieId" component={MovieDetailsPage} />
-            <Route path="/movies" component={MoviesPage} />
-            <Route component={NotFoundPage} />
-          </Switch>
+          <div className={s.containerMain}>
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route path="/movies/:movieId" component={MovieDetailsPage} />
+              <Route path="/movies" component={MoviesPage} />
+              <Route component={NotFoundPage} />
+            </Switch>
+          </div>
         </main>
       </>
     );

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { NavLink } from 'react-router-dom';
+import s from './s.module.scss';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org';
 const apiKey = 'e548173527b69af98deb3da87ab1364c';
@@ -24,8 +25,8 @@ class MoviesPage extends Component {
   handleSubmit = e => {
     e.preventDefault();
 
-    this.fetchMovie(this.state.inputValue);
-    this.setState({ inputValue: '' });
+    this.state.inputValue && this.fetchMovie(this.state.inputValue);
+    // this.setState({ inputValue: '' });
   };
 
   render() {
@@ -34,14 +35,17 @@ class MoviesPage extends Component {
         <h1>Movies Page</h1>
         <form onSubmit={this.handleSubmit}>
           <input
+            className={s.moviesPageFormInput}
             type="text"
             value={this.state.inputValue}
             onChange={this.handleChange}
           />
-          <button type="submit">Search</button>
+          <button className={s.moviesPageFormBtn} type="submit">
+            Search
+          </button>
         </form>
 
-        <ul>
+        <ul className="linksList">
           {this.state.movies.map(movie => (
             <li key={movie.id}>
               <NavLink to={`${this.props.match.url}/${movie.id}`}>

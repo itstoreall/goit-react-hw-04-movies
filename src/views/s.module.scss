@@ -1,0 +1,74 @@
+@import '../styles/shared.scss';
+
+// Page Header
+.pageHeader {
+  display: flex;
+  justify-content: center;
+
+  .containerHeader {
+    padding: 4px 20px;
+    width: 100%;
+    max-width: 1200px;
+
+    .NavList {
+      display: flex;
+
+      & li:first-child {
+        margin-right: 4px;
+      }
+
+      .NavLink {
+        display: block;
+        padding: 15px 25px;
+        font-size: 20px;
+        color: white;
+        background-color: $navLink;
+        border-radius: 4px;
+
+        &:hover {
+          background-color: $navLink__hover;
+        }
+      }
+    }
+
+    .NavLink__active {
+      color: white;
+      background-color: $navLink__hover;
+    }
+  }
+}
+
+// Page Main
+.containerMain {
+  padding: 30px 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+
+  // Movies Page
+  .moviesPageFormInput {
+    padding: 10px;
+    margin: 0 4px 25px 0;
+    border: 2px solid $formInput;
+    border-radius: 4px;
+
+    &:focus {
+      padding: 9px;
+      border: 3px solid $formInput__focus;
+      outline: none;
+    }
+  }
+
+  .moviesPageFormBtn {
+    padding: 12px 25px;
+    color: white;
+    background-color: $formBtn;
+    border-radius: 4px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $formBtn__hover;
+    }
+  }
+}

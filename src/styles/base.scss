@@ -1,3 +1,5 @@
+@import './shared.scss';
+
 html {
   box-sizing: border-box;
 }
@@ -21,6 +23,10 @@ p {
   padding: 0;
 }
 
+h1 {
+  margin-bottom: 20px;
+}
+
 a {
   text-decoration: none;
 }
@@ -29,4 +35,18 @@ ul {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.linksList {
+  & li {
+    margin-bottom: 4px;
+
+    a {
+      color: $navLink;
+
+      &:hover {
+        color: $navLink__hover;
+      }
+    }
+  }
 }
