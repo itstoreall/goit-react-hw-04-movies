@@ -21,11 +21,12 @@ p {
   padding: 0;
 }
 
-.NavLink {
-  font-size: 20px;
-  color: currentColor;
+a {
+  text-decoration: none;
 }
 
-.NavLink--active {
-  color: palevioletred;
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }

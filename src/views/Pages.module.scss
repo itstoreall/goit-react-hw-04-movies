@@ -1,0 +1,29 @@
+// Page Header
+.section {
+  display: flex;
+  justify-content: center;
+  background-color: yellow;
+
+  .containet {
+    display: flex;
+    width: 1200px;
+    background-color: skyblue;
+
+    .NavLink {
+      display: block;
+      padding: 15px 25px;
+      font-size: 20px;
+      color: white;
+      background-color: teal;
+
+      &:hover {
+        background-color: palevioletred;
+      }
+    }
+
+    .NavLink__active {
+      color: white;
+      background-color: palevioletred;
+    }
+  }
+}
