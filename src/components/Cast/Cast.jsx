@@ -1,5 +1,6 @@
 import React from 'react';
 import imgNoFound from './error.jpg';
+import s from './Cast.module.scss';
 
 const Cast = ({ credits }) => {
   const handleImgUrl = url => {
@@ -9,15 +10,17 @@ const Cast = ({ credits }) => {
   return (
     <>
       {credits && (
-        <ul>
+        <ul className={s.list}>
           {credits.cast &&
             credits.cast.map((actor, idx) => (
               <li key={`${idx}${actor.id}`}>
-                <img
-                  src={handleImgUrl(actor.profile_path)}
-                  alt="jj"
-                  width="100"
-                />
+                <div className={s.thumb}>
+                  <img
+                    src={handleImgUrl(actor.profile_path)}
+                    alt="jj"
+                    width="100"
+                  />
+                </div>
                 <p>{actor.name}</p>
                 <p>{actor.character}</p>
               </li>

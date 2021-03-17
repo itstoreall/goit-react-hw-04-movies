@@ -4,6 +4,7 @@
 .pageHeader {
   display: flex;
   justify-content: center;
+  box-shadow: $headerShadow;
 
   .containerHeader {
     padding: 4px 20px;
@@ -19,7 +20,7 @@
 
       .NavLink {
         display: block;
-        padding: 15px 25px;
+        padding: 10px 20px;
         font-size: 20px;
         color: white;
         background-color: $navLink;
@@ -69,6 +70,69 @@
 
     &:hover {
       background-color: $formBtn__hover;
+    }
+  }
+
+  // Muvie Details Page
+  .goBackBtn {
+    padding: 7px 13px;
+    margin-bottom: 10px;
+    color: white;
+    font-size: 14px;
+    background-color: $formBtn__hover;
+    border-radius: 3px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $formBtn;
+    }
+  }
+
+  .moviesDetailsWrap {
+    display: flex;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-top: 1px solid #ccc;
+
+    img {
+      width: 250px;
+    }
+
+    .moviesDetailsContent {
+      padding: 20px;
+
+      h2,
+      h3,
+      p {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  // Additional Info
+  .additionalInfoWrap {
+    padding: 20px;
+    margin-bottom: 10px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+
+    h3 {
+      margin-bottom: 20px;
+    }
+
+    li {
+      margin-bottom: 7px;
+
+      a {
+        font-weight: 500;
+        color: $link;
+
+        &:hover {
+          color: $link__hover;
+        }
+      }
     }
   }
 }

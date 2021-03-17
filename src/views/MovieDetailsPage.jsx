@@ -3,6 +3,7 @@ import axios from 'axios';
 import { NavLink, Route } from 'react-router-dom';
 import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
+import s from './s.module.scss';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org';
 const apiKey = 'e548173527b69af98deb3da87ab1364c';
@@ -24,7 +25,7 @@ export default class MovieDetailsPage extends Component {
       const response = await axios.get(
         `/3/movie/${movieId}?api_key=${apiKey}&append_to_response=credits,reviews`,
       );
-      // console.log('response', response.data);
+      console.log('response', response);
       this.setState({ ...response.data });
     } catch (error) {
       console.error(error);
@@ -38,6 +39,7 @@ export default class MovieDetailsPage extends Component {
     const {
       poster_path,
       title,
+      vote_average,
       release_date,
       overview,
       genres,
@@ -50,30 +52,36 @@ export default class MovieDetailsPage extends Component {
         {poster_path && (
           <>
             <h1>Movie Details Page - {movieId}</h1>
-            <div>
-              <img src={poster} alt={title} />
-              <h2>
-                {title} ({release_date.slice(0, 4)})
-              </h2>
-              <h3>Overview</h3>
-              <p>{overview}</p>
-              <h3>Genres</h3>
-              {genres.map(genre => (
-                <span key={genre.name}>{genre.name} </span>
-              ))}
+            <button className={s.goBackBtn}>&#8592; Go back</button>
+            <div className={s.moviesDetailsWrap}>
+              <img src={poster} alt={title} width="250" />
+              <div className={s.moviesDetailsContent}>
+                <h2>
+                  {title} ({release_date.slice(0, 4)})
+                </h2>
+                <p>{`User Score: ${vote_average * 10}%`}</p>
+                <h3>Overview</h3>
+                <p>{overview}</p>
+                <h3>Genres</h3>
+                {genres.map(genre => (
+                  <span key={genre.name}>{genre.name} </span>
+                ))}
+              </div>
             </div>
           </>
         )}
 
-        <h3>Additional information</h3>
-        <ul>
-          <li>
-            <NavLink to={`${url}/cast`}>Cost</NavLink>
-          </li>
-          <li>
-            <NavLink to={`${url}/reviews`}>Reviews</NavLink>
-          </li>
-        </ul>
+        <div className={s.additionalInfoWrap}>
+          <h3>Additional information</h3>
+          <ul>
+            <li>
+              <NavLink to={`${url}/cast`}>Cost</NavLink>
+            </li>
+            <li>
+              <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+            </li>
+          </ul>
+        </div>
         <Route
           path={`${path}/cast`}
           render={props => <Cast credits={credits} />}
