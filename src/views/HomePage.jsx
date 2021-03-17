@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import TrendList from '../components/TrendList';
 import s from './s.module.scss';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org';
@@ -25,22 +25,7 @@ class HomePage extends Component {
     return (
       <>
         <h1 className={s.title}>Home Page</h1>
-        <ul className="linksList">
-          {this.state.trends.length > 0 &&
-            this.state.trends.map(
-              trend =>
-                trend.title !== undefined && (
-                  <li key={trend.id}>
-                    <NavLink
-                      to={`/movies/${trend.id}`}
-                      className={s.homePagelink}
-                    >
-                      {trend.title}
-                    </NavLink>
-                  </li>
-                ),
-            )}
-        </ul>
+        <TrendList state={this.state} />
       </>
     );
   }

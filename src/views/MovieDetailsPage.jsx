@@ -25,12 +25,21 @@ export default class MovieDetailsPage extends Component {
       const response = await axios.get(
         `/3/movie/${movieId}?api_key=${apiKey}&append_to_response=credits,reviews`,
       );
-      console.log('response', response);
+      // console.log('response', response.data);
       this.setState({ ...response.data });
     } catch (error) {
       console.error(error);
     }
   }
+
+  handleGoBack = () => {
+    const { location, history } = this.props;
+    location.state && location.state.from
+      ? history.push(location.state.from)
+      : history.push('/');
+
+    // history.push(location?.state?.from || '/'); // New syntax
+  };
 
   render() {
     const poster = `https://image.tmdb.org/t/p/w400/${this.state.poster_path}`;
@@ -52,7 +61,9 @@ export default class MovieDetailsPage extends Component {
         {poster_path && (
           <>
             <h1>Movie Details Page - {movieId}</h1>
-            <button className={s.goBackBtn}>&#8592; Go back</button>
+            <button className={s.goBackBtn} onClick={this.handleGoBack}>
+              &#8592; Go back
+            </button>
             <div className={s.moviesDetailsWrap}>
               <img src={poster} alt={title} width="250" />
               <div className={s.moviesDetailsContent}>

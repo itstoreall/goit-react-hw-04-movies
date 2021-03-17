@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { NavLink } from 'react-router-dom';
+import MovieList from '../components/MovieList';
 import s from './s.module.scss';
 
 axios.defaults.baseURL = 'https://api.themoviedb.org';
@@ -45,15 +45,7 @@ class MoviesPage extends Component {
           </button>
         </form>
 
-        <ul className="linksList">
-          {this.state.movies.map(movie => (
-            <li key={movie.id}>
-              <NavLink to={`${this.props.match.url}/${movie.id}`}>
-                {movie.title}
-              </NavLink>
-            </li>
-          ))}
-        </ul>
+        <MovieList movies={this.state.movies} match={this.props.match} />
       </>
     );
   }
