@@ -1,6 +1,5 @@
-import React, { Component, Suspense, lazy } from 'react';
+import { Component, Suspense, lazy } from 'react';
 import axios from 'axios';
-// import MoviePreview from '../components/MoviePreview';
 import { NavLink, Route } from 'react-router-dom';
 import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
@@ -39,17 +38,6 @@ export default class MovieDetailsPage extends Component {
 
   handleGoBack = () => {
     const { location, history } = this.props;
-    location.state && location.state.from
-      ? history.push(location.state.from)
-      : history.push('/');
-
-    // history.push(location?.state?.from || '/'); // New syntax
-  };
-
-  // ------------------
-
-  handleBackBtn = () => {
-    const { location, history } = this.props;
 
     location.state && location.state.query
       ? history.push({
@@ -60,21 +48,15 @@ export default class MovieDetailsPage extends Component {
   };
 
   render() {
-    // const poster = `https://image.tmdb.org/t/p/w400/${this.state.poster_path}`;
-    // const { movieId } = this.props.match.params;
     const { url, path } = this.props.match;
     const { poster_path, credits, reviews } = this.state;
-    console.log(this.state.id);
+
     return (
       <>
         {poster_path && (
           <>
             <button className={s.goBackBtn} onClick={this.handleGoBack}>
               &#8592; Go back
-            </button>
-
-            <button className={s.goBackBtn} onClick={this.handleBackBtn}>
-              &#8592; BackBtn
             </button>
 
             <Suspense fallback={<p>Загрузка...</p>}>

@@ -1,29 +1,25 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
-// import s from './s.module.scss';
 
-const TrendList = ({ trends, location }) => {
-  // console.log('location', location);
-  return (
-    <ul className="linksList">
-      {trends.length > 0 &&
-        trends.map(
-          trend =>
-            trend.title !== undefined && (
-              <li key={trend.id}>
-                <NavLink
-                  to={{
-                    pathname: `/movies/${trend.id}`,
-                    state: { from: location },
-                  }}
-                >
-                  {trend.title}
-                </NavLink>
-              </li>
-            ),
-        )}
-    </ul>
-  );
-};
+const TrendList = ({ trends, location }) => (
+  <ul className="linksList">
+    {trends.length > 0 &&
+      trends.map(
+        trend =>
+          trend.title !== undefined && (
+            <li key={trend.id}>
+              <NavLink
+                to={{
+                  pathname: `/movies/${trend.id}`,
+                  state: { from: location },
+                }}
+              >
+                {trend.title}
+              </NavLink>
+            </li>
+          ),
+      )}
+  </ul>
+);
 
 export default withRouter(TrendList);

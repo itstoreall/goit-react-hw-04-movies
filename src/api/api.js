@@ -17,7 +17,6 @@ const getTrends = async query => {
     return [];
   }
 };
-// axios.get(`/3/search/movie?api_key=${apiKey}&query=${query}`);
 
 const fetchMovies = { getTrends };
 export default fetchMovies;
