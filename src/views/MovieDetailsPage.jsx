@@ -1,10 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component, Suspense, lazy } from 'react';
 import axios from 'axios';
-import MoviePreview from '../components/MoviePreview';
+// import MoviePreview from '../components/MoviePreview';
 import { NavLink, Route } from 'react-router-dom';
 import Cast from '../components/Cast';
 import Reviews from '../components/Reviews';
 import s from './s.module.scss';
+
+const MoviePreview = lazy(() =>
+  import('../components/MoviePreview' /* webpackChunkName: "MoviePreview" */),
+);
 
 axios.defaults.baseURL = 'https://api.themoviedb.org';
 const apiKey = 'e548173527b69af98deb3da87ab1364c';
@@ -44,7 +48,7 @@ export default class MovieDetailsPage extends Component {
 
   render() {
     // const poster = `https://image.tmdb.org/t/p/w400/${this.state.poster_path}`;
-    const { movieId } = this.props.match.params;
+    // const { movieId } = this.props.match.params;
     const { url, path } = this.props.match;
     const { poster_path, credits, reviews } = this.state;
 
@@ -52,11 +56,14 @@ export default class MovieDetailsPage extends Component {
       <>
         {poster_path && (
           <>
-            <h1>Movie Details Page - {movieId}</h1>
+            {/* <h1>Movie Details Page - {movieId}</h1> */}
             <button className={s.goBackBtn} onClick={this.handleGoBack}>
               &#8592; Go back
             </button>
-            <MoviePreview state={this.state} />
+
+            <Suspense fallback={<p>Загрузка...</p>}>
+              <MoviePreview state={this.state} />
+            </Suspense>
           </>
         )}
 

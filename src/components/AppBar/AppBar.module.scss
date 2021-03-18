@@ -4,12 +4,13 @@
 .pageHeader {
   display: flex;
   justify-content: center;
+  background-color: rgb(246, 246, 250);
   box-shadow: $headerShadow;
 
   .containerHeader {
     padding: 4px 20px 4px 4px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 880px;
 
     .NavList {
       display: flex;

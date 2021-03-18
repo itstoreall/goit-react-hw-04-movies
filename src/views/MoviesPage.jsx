@@ -32,7 +32,7 @@ class MoviesPage extends Component {
   render() {
     return (
       <>
-        <h1>Movies Page</h1>
+        {/* <h1>Movies Page</h1> */}
         <form onSubmit={this.handleSubmit}>
           <input
             className={s.moviesPageFormInput}
