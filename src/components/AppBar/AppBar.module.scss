@@ -1,0 +1,40 @@
+@import '../../styles/shared.scss';
+
+// Page Header
+.pageHeader {
+  display: flex;
+  justify-content: center;
+  box-shadow: $headerShadow;
+
+  .containerHeader {
+    padding: 4px 20px 4px 4px;
+    width: 100%;
+    max-width: 1200px;
+
+    .NavList {
+      display: flex;
+
+      & a:first-child {
+        margin-right: 4px;
+      }
+
+      .NavLink {
+        display: block;
+        padding: 10px 20px;
+        font-size: 20px;
+        color: white;
+        background-color: $navLink;
+        border-radius: 4px;
+
+        &:hover {
+          background-color: $navLink__hover;
+        }
+      }
+    }
+
+    .NavLink__active {
+      color: white;
+      background-color: $navLink__hover;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+.moviesDetailsWrap {
+  display: flex;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-top: 1px solid #ccc;
+
+  img {
+    width: 250px;
+  }
+
+  .moviesDetailsContent {
+    padding: 20px;
+
+    h2,
+    h3,
+    p {
+      margin-bottom: 20px;
+    }
+  }
+}
