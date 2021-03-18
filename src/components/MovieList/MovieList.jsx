@@ -1,15 +1,19 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
-const MovieList = ({ movies, match, location }) => {
+const MovieList = ({ movies, match, location, newMovies, pathname, query }) => {
+  console.log(pathname);
+  console.log(query);
   return (
     <ul className="linksList">
-      {movies.map(({ id, title }) => (
+      {newMovies.map(({ id, title }) => (
         <li key={id}>
           <NavLink
             to={{
-              pathname: `${match.url}/${id}`,
-              state: { from: location },
+              pathname: `${pathname}/${id}`,
+              state: {
+                query: query,
+              },
             }}
           >
             {title}
@@ -17,6 +21,20 @@ const MovieList = ({ movies, match, location }) => {
         </li>
       ))}
     </ul>
+    // <ul className="linksList">
+    //   {movies.map(({ id, title }) => (
+    //     <li key={id}>
+    //       <NavLink
+    //         to={{
+    //           pathname: `${match.url}/${id}`,
+    //           state: { from: location },
+    //         }}
+    //       >
+    //         {title}
+    //       </NavLink>
+    //     </li>
+    //   ))}
+    // </ul>
   );
 };
 

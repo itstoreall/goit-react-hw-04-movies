@@ -46,19 +46,35 @@ export default class MovieDetailsPage extends Component {
     // history.push(location?.state?.from || '/'); // New syntax
   };
 
+  // ------------------
+
+  handleBackBtn = () => {
+    const { location, history } = this.props;
+
+    location.state && location.state.query
+      ? history.push({
+          pathname: '/movies',
+          search: `?query=${location.state.query}`,
+        })
+      : history.push('/');
+  };
+
   render() {
     // const poster = `https://image.tmdb.org/t/p/w400/${this.state.poster_path}`;
     // const { movieId } = this.props.match.params;
     const { url, path } = this.props.match;
     const { poster_path, credits, reviews } = this.state;
-
+    console.log(this.state.id);
     return (
       <>
         {poster_path && (
           <>
-            {/* <h1>Movie Details Page - {movieId}</h1> */}
             <button className={s.goBackBtn} onClick={this.handleGoBack}>
               &#8592; Go back
+            </button>
+
+            <button className={s.goBackBtn} onClick={this.handleBackBtn}>
+              &#8592; BackBtn
             </button>
 
             <Suspense fallback={<p>Загрузка...</p>}>
@@ -71,13 +87,34 @@ export default class MovieDetailsPage extends Component {
           <h3>Additional information</h3>
           <ul>
             <li>
-              <NavLink to={`${url}/cast`}>Cost</NavLink>
+              <NavLink
+                to={{
+                  pathname: `${url}/cast`,
+                  state: {
+                    ...this.props.location.state,
+                    path: `/movies/${this.state.id}`,
+                  },
+                }}
+              >
+                Cost
+              </NavLink>
             </li>
             <li>
-              <NavLink to={`${url}/reviews`}>Reviews</NavLink>
+              <NavLink
+                to={{
+                  pathname: `${url}/reviews`,
+                  state: {
+                    ...this.props.location.state,
+                    path: `/movies/${this.state.id}`,
+                  },
+                }}
+              >
+                Reviews
+              </NavLink>
             </li>
           </ul>
         </div>
+
         <Route
           path={`${path}/cast`}
           render={props => <Cast credits={credits} />}
