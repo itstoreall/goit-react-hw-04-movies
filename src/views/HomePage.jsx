@@ -1,34 +1,13 @@
-import axios from 'axios';
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 import TrendList from '../components/TrendList';
-// import s from './s.module.scss';
+import api from '../api';
 
-axios.defaults.baseURL = 'https://api.themoviedb.org';
-const apiKey = 'e548173527b69af98deb3da87ab1364c';
+const HomePage = () => {
+  const [trends, setTrends] = useState([]);
 
-class HomePage extends Component {
-  state = {
-    trends: [],
-  };
+  useEffect(() => api.getTrends().then(trends => setTrends(trends)), []);
 
-  async componentDidMount() {
-    try {
-      const response = await axios.get(`/3/trending/all/day?api_key=${apiKey}`);
-      const { results } = response.data;
-      this.setState({ trends: results });
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  render() {
-    return (
-      <>
-        {/* <h1 className={s.title}>Home Page</h1> */}
-        <TrendList state={this.state} />
-      </>
-    );
-  }
-}
+  return <TrendList trends={trends} />;
+};
 
 export default HomePage;

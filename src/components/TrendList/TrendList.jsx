@@ -2,12 +2,12 @@ import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 // import s from './s.module.scss';
 
-const TrendList = ({ state, location }) => {
+const TrendList = ({ trends, location }) => {
   // console.log('location', location);
   return (
     <ul className="linksList">
-      {state.trends.length > 0 &&
-        state.trends.map(
+      {trends.length > 0 &&
+        trends.map(
           trend =>
             trend.title !== undefined && (
               <li key={trend.id}>
