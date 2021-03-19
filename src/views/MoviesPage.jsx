@@ -1,64 +1,51 @@
-import React, { Component } from 'react';
+import { useState, useEffect } from 'react';
 import MovieList from '../components/MovieList';
 import queryString from 'query-string';
 import api from '../api';
 import s from './s.module.scss';
 
-class MoviesPage extends Component {
-  state = {
-    inputValue: '',
-    movies: [],
-    newMovies: [],
-    query: queryString.parse(this.props.location.search).query || '',
-  };
+const MoviesPage = ({ history, location, match }) => {
+  const [newMovies, setNewMovies] = useState([]);
+  const [query, setQuery] = useState(
+    queryString.parse(location.search).query || '',
+  );
 
-  componentDidMount() {
-    this.props.location.search && this.getMovie(this.state.query);
-  }
+  useEffect(() => location.search && getMovie(query), [location.search, query]);
 
-  getMovie = query =>
-    api.getMovie(query).then(res => this.setState({ newMovies: res }));
+  const getMovie = query => api.getMovie(query).then(res => setNewMovies(res));
 
-  handleChange = e => {
-    this.setState({ query: e.target.value });
-  };
+  const handleChange = e => setQuery(e.target.value);
 
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
-    this.state.query && this.getMovie(this.state.query);
-
-    this.props.history.push({
-      ...this.props.location,
-      search: `?query=${this.state.query}`,
-    });
+    query && getMovie(query);
+    history.push({ ...location, search: `?query=${query}` });
   };
 
-  render() {
-    return (
-      <>
-        <form onSubmit={this.handleSubmit}>
-          <input
-            className={s.moviesPageFormInput}
-            type="text"
-            value={this.state.query}
-            onChange={this.handleChange}
-          />
-          <button className={s.moviesPageFormBtn} type="submit">
-            Search
-          </button>
-        </form>
-
-        <MovieList
-          movies={this.state.movies}
-          match={this.props.match}
-          newMovies={this.state.newMovies}
-          pathname={this.props.location.pathname}
-          query={this.state.query}
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <input
+          className={s.moviesPageFormInput}
+          type="text"
+          value={query}
+          onChange={handleChange}
         />
-      </>
-    );
-  }
-}
+        <button className={s.moviesPageFormBtn} type="submit">
+          Search
+        </button>
+      </form>
+
+      <MovieList
+        // movies={movies}
+        match={match}
+        newMovies={newMovies}
+        pathname={location.pathname}
+        query={query}
+      />
+    </>
+  );
+};
 
 export default MoviesPage;
