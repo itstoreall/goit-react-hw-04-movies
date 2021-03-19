@@ -19,6 +19,7 @@ const getTrends = async () => {
 };
 
 const getMovie = async query => {
+  console.log('api query:', query);
   try {
     const { data } = await axios.get(`/3/search/movie?query=${query}`);
     return data.results;

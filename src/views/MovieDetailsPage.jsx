@@ -1,12 +1,16 @@
 import { Component, Suspense, lazy } from 'react';
 import axios from 'axios';
 import { NavLink, Route } from 'react-router-dom';
-import Cast from '../components/Cast';
-import Reviews from '../components/Reviews';
-import s from './s.module.scss';
+import s from './views.module.scss';
 
 const MoviePreview = lazy(() =>
   import('../components/MoviePreview' /* webpackChunkName: "MoviePreview" */),
+);
+const Cast = lazy(() =>
+  import('../components/Cast' /* webpackChunkName: "Cast" */),
+);
+const Reviews = lazy(() =>
+  import('../components/Reviews' /* webpackChunkName: "Reviews" */),
 );
 
 axios.defaults.baseURL = 'https://api.themoviedb.org';
@@ -58,10 +62,7 @@ export default class MovieDetailsPage extends Component {
             <button className={s.goBackBtn} onClick={this.handleGoBack}>
               &#8592; Go back
             </button>
-
-            <Suspense fallback={<p>Загрузка...</p>}>
-              <MoviePreview state={this.state} />
-            </Suspense>
+            <MoviePreview state={this.state} />
           </>
         )}
 
@@ -96,15 +97,16 @@ export default class MovieDetailsPage extends Component {
             </li>
           </ul>
         </div>
-
-        <Route
-          path={`${path}/cast`}
-          render={props => <Cast credits={credits} />}
-        />
-        <Route
-          path={`${path}/reviews`}
-          render={props => <Reviews reviews={reviews} />}
-        />
+        <Suspense fallback={<p>Loading...</p>}>
+          <Route
+            path={`${path}/cast`}
+            render={props => <Cast credits={credits} />}
+          />
+          <Route
+            path={`${path}/reviews`}
+            render={props => <Reviews reviews={reviews} />}
+          />
+        </Suspense>
       </>
     );
   }
