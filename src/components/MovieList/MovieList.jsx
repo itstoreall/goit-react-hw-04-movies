@@ -1,9 +1,9 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 
-const MovieList = ({ newMovies, pathname, query }) => (
+const MovieList = ({ movies, pathname, query }) => (
   <ul className="linksList">
-    {newMovies.map(({ id, title }) => (
+    {movies.map(({ id, title }) => (
       <li key={id}>
         <NavLink
           to={{

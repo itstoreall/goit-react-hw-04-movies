@@ -1,18 +1,18 @@
 import { useState, useEffect } from 'react';
 import MovieList from '../components/MovieList';
+import SearchForm from '../components/SearchForm';
 import queryString from 'query-string';
 import api from '../api';
-import s from './s.module.scss';
 
 const MoviesPage = ({ history, location, match }) => {
-  const [newMovies, setNewMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [query, setQuery] = useState(
     queryString.parse(location.search).query || '',
   );
 
   useEffect(() => location.search && getMovie(query), [location.search, query]);
 
-  const getMovie = query => api.getMovie(query).then(res => setNewMovies(res));
+  const getMovie = query => api.getMovie(query).then(res => setMovies(res));
 
   const handleChange = e => setQuery(e.target.value);
 
@@ -25,22 +25,14 @@ const MoviesPage = ({ history, location, match }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <input
-          className={s.moviesPageFormInput}
-          type="text"
-          value={query}
-          onChange={handleChange}
-        />
-        <button className={s.moviesPageFormBtn} type="submit">
-          Search
-        </button>
-      </form>
-
+      <SearchForm
+        handleSubmit={handleSubmit}
+        query={query}
+        handleChange={handleChange}
+      />
       <MovieList
-        // movies={movies}
         match={match}
-        newMovies={newMovies}
+        movies={movies}
         pathname={location.pathname}
         query={query}
       />
