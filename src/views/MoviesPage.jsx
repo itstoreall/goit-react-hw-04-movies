@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import MovieList from '../components/MovieList';
 import queryString from 'query-string';
+import api from '../api';
 import s from './s.module.scss';
-
-axios.defaults.baseURL = 'https://api.themoviedb.org';
-const apiKey = 'e548173527b69af98deb3da87ab1364c';
 
 class MoviesPage extends Component {
   state = {
@@ -20,9 +17,7 @@ class MoviesPage extends Component {
   }
 
   getMovie = query =>
-    axios
-      .get(`/3/search/movie?api_key=${apiKey}&query=${query}`)
-      .then(({ data }) => this.setState({ newMovies: data.results }));
+    api.getMovie(query).then(res => this.setState({ newMovies: res }));
 
   handleChange = e => {
     this.setState({ query: e.target.value });

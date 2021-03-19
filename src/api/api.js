@@ -8,7 +8,7 @@ axios.defaults.params = {
   api_key: API_KEY,
 };
 
-const getTrends = async query => {
+const getTrends = async () => {
   try {
     const { data } = await axios.get(`/3/trending/all/day`);
     return data.results;
@@ -18,5 +18,15 @@ const getTrends = async query => {
   }
 };
 
-const fetchMovies = { getTrends };
+const getMovie = async query => {
+  try {
+    const { data } = await axios.get(`/3/search/movie?query=${query}`);
+    return data.results;
+  } catch (error) {
+    console.log('error', { error });
+    return [];
+  }
+};
+
+const fetchMovies = { getTrends, getMovie };
 export default fetchMovies;
