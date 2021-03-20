@@ -1,5 +1,6 @@
 import { Component, Suspense, lazy } from 'react';
 import { NavLink, Route } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import api from '../api';
 import s from './views.module.scss';
 
@@ -102,3 +103,9 @@ export default class MovieDetailsPage extends Component {
     );
   }
 }
+
+MovieDetailsPage.propTypes = {
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+  match: PropTypes.object.isRequired,
+};

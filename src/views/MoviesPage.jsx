@@ -16,9 +16,13 @@ const MoviesPage = ({ location, match }) => {
     getMovie(text);
   };
 
-  useEffect(() => location.search && getMovie(query), [location.search, query]);
+  useEffect(() => {
+    location.search && getMovie(query);
+  }, [location.search, query]);
 
-  const getMovie = query => api.getMovie(query).then(res => setMovies(res));
+  const getMovie = query => {
+    api.getMovie(query).then(res => setMovies(res));
+  };
 
   return (
     <>

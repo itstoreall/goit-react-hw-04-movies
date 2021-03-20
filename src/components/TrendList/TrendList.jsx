@@ -1,5 +1,6 @@
 import React from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const TrendList = ({ trends, location }) => (
   <ul className="linksList">
@@ -21,5 +22,10 @@ const TrendList = ({ trends, location }) => (
       )}
   </ul>
 );
+
+TrendList.propTypes = {
+  trends: PropTypes.array.isRequired,
+  location: PropTypes.object.isRequired,
+};
 
 export default withRouter(TrendList);

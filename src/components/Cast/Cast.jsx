@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import imgNoFound from './error.jpg';
 import s from './Cast.module.scss';
 
@@ -29,6 +30,10 @@ const Cast = ({ credits }) => {
       )}
     </>
   );
+};
+
+Cast.propTypes = {
+  credits: PropTypes.objectOf(PropTypes.array).isRequired,
 };
 
 export default Cast;

@@ -1,9 +1,16 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import s from './MoviePreview.module.scss';
 
-const MoviePreview = ({
-  state: { poster_path, title, release_date, vote_average, overview, genres },
-}) => {
+const MoviePreview = ({ state }) => {
+  const {
+    poster_path,
+    title,
+    release_date,
+    vote_average,
+    overview,
+    genres,
+  } = state;
   const poster = `https://image.tmdb.org/t/p/w400/${poster_path}`;
 
   return (
@@ -23,6 +30,10 @@ const MoviePreview = ({
       </div>
     </div>
   );
+};
+
+MoviePreview.propTypes = {
+  state: PropTypes.object.isRequired,
 };
 
 export default MoviePreview;
