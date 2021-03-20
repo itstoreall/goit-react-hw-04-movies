@@ -31,26 +31,4 @@ const App = () => (
   </>
 );
 
-// class App extends Component {
-//   render() {
-//     return (
-//       <>
-//         <AppBar />
-//         <main>
-//           <div className={s.containerMain}>
-//             <Suspense fallback={<p>Loading...</p>}>
-//               <Switch>
-//                 <Route exact path="/" component={HomePage} />
-//                 <Route path="/movies/:movieId" component={MovieDetailsPage} />
-//                 <Route path="/movies" component={MoviesPage} />
-//                 <Redirect to="/" />
-//               </Switch>
-//             </Suspense>
-//           </div>
-//         </main>
-//       </>
-//     );
-//   }
-// }
-
 export default App;

@@ -19,7 +19,6 @@ const getTrends = async () => {
 };
 
 const getMovie = async query => {
-  console.log('api query:', query);
   try {
     const { data } = await axios.get(`/3/search/movie?query=${query}`);
     return data.results;
@@ -29,5 +28,17 @@ const getMovie = async query => {
   }
 };
 
-const fetchMovies = { getTrends, getMovie };
+const getMovieDetails = async id => {
+  try {
+    const { data } = await axios.get(
+      `/3/movie/${id}?append_to_response=credits,reviews`,
+    );
+    return data;
+  } catch (error) {
+    console.log('error', { error });
+    return [];
+  }
+};
+
+const fetchMovies = { getTrends, getMovie, getMovieDetails };
 export default fetchMovies;

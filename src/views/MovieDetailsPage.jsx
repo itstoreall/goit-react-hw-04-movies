@@ -1,6 +1,6 @@
 import { Component, Suspense, lazy } from 'react';
-import axios from 'axios';
 import { NavLink, Route } from 'react-router-dom';
+import api from '../api';
 import s from './views.module.scss';
 
 const MoviePreview = lazy(() =>
@@ -13,9 +13,6 @@ const Reviews = lazy(() =>
   import('../components/Reviews' /* webpackChunkName: "Reviews" */),
 );
 
-axios.defaults.baseURL = 'https://api.themoviedb.org';
-const apiKey = 'e548173527b69af98deb3da87ab1364c';
-
 export default class MovieDetailsPage extends Component {
   state = {
     poster_path: '',
@@ -27,17 +24,11 @@ export default class MovieDetailsPage extends Component {
     reviews: null,
   };
 
-  async componentDidMount() {
-    try {
-      const { movieId } = this.props.match.params;
-      const response = await axios.get(
-        `/3/movie/${movieId}?api_key=${apiKey}&append_to_response=credits,reviews`,
-      );
-      // console.log('response', response.data);
-      this.setState({ ...response.data });
-    } catch (error) {
-      console.error(error);
-    }
+  componentDidMount() {
+    const { movieId } = this.props.match.params;
+    api
+      .getMovieDetails(movieId)
+      .then(movieDetails => this.setState({ ...movieDetails }));
   }
 
   handleGoBack = () => {

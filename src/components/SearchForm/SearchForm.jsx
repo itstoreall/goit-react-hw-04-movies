@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import s from './SearchForm.module.scss';
 
-const SearchForm = ({ onSubmit, handleSubmit, query, handleChange }) => {
+const SearchForm = ({ onSubmit }) => {
   const [inputValue, setInputValue] = useState('');
 
-  const handleValue = e => setInputValue(e.currentTarget.value);
+  const handleChange = e => setInputValue(e.currentTarget.value);
 
-  const handleSubmitForm = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     inputValue.length > 0 ? onSubmit(inputValue) : setInputValue('');
@@ -14,13 +14,11 @@ const SearchForm = ({ onSubmit, handleSubmit, query, handleChange }) => {
   };
 
   return (
-    <form onSubmit={handleSubmitForm}>
+    <form onSubmit={handleSubmit}>
       <input
         className={s.moviesPageFormInput}
-        // type="text"
         value={inputValue}
-        // onChange={handleChange}
-        onChange={handleValue}
+        onChange={handleChange}
       />
       <button className={s.moviesPageFormBtn} type="submit">
         Search
