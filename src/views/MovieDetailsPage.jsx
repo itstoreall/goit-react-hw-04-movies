@@ -29,7 +29,7 @@ const MovieDetailsPage = ({ history, location, match }) => {
     api
       .getMovieDetails(movieId)
       .then(movieDetails => setState({ ...movieDetails }));
-  });
+  }, []); // eslint-disable-line
 
   const handleGoBack = () => {
     location.state && location.state.query
